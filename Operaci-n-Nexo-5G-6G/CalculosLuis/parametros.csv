@@ -1,0 +1,11 @@
+Parámetro,Valor
+Frecuencia,1800.0
+Ancho_banda,20000000.0
+Potencia_TX,43.0
+Ganancia_TX,18.0
+Ganancia_RX,0.0
+Perdidas_adicionales,12.0
+Figura_ruido,7.0
+Perdidas_implementacion,2.0
+Grado_servicio,0.02
+Canales_totales,100.0

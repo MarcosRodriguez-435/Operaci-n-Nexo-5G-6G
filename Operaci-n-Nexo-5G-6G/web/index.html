@@ -1,0 +1,552 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Operacion Nexo 5G/6G | Resumen Tecnico</title>
+  <meta name="description" content="Presentacion visual, profesional e interactiva del dimensionamiento corregido de la red movil para Nueva Pangea.">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="page-shell">
+    <header class="hero">
+      <div class="hero-copy">
+        <p class="eyebrow">Operacion Nexo 5G/6G · Nueva Pangea</p>
+        <h1>Dimensionamiento radio corregido con enfoque de cobertura, capacidad e interferencia.</h1>
+        <p class="lead">
+          Se han rehecho los calculos con Erlang B real, reparto entero de canales y una lectura estricta del enunciado.
+          El resultado es claro: en ambos escenarios manda la capacidad, no la cobertura.
+        </p>
+        <div class="hero-actions">
+          <a class="button primary" href="#laboratorio">Abrir laboratorio</a>
+          <a class="button secondary" href="#resultados">Ver resultados base</a>
+        </div>
+      </div>
+
+      <div class="hero-panel">
+        <div class="signal-board">
+          <div class="board-tag">Lectura ejecutiva</div>
+          <div class="board-metric">
+            <span class="metric-label">Distrito financiero</span>
+            <strong>0.150 km</strong>
+            <span class="metric-foot">Radio de diseno recomendado con N=3</span>
+          </div>
+          <div class="board-metric accent-teal">
+            <span class="metric-label">Festival global</span>
+            <strong>0.205 km</strong>
+            <span class="metric-foot">Radio de diseno por capacidad</span>
+          </div>
+          <div class="board-metric accent-amber">
+            <span class="metric-label">Cell splitting</span>
+            <strong>278</strong>
+            <span class="metric-foot">Microceldas por macrocelda equivalente</span>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <main>
+      <section class="section key-figures" id="resultados">
+        <div class="section-heading">
+          <p class="eyebrow">Resumen tecnico</p>
+          <h2>Los numeros corregidos cambian la escala de capacidad.</h2>
+        </div>
+
+        <div class="stats-grid">
+          <article class="stat-card">
+            <span class="stat-title">Ruido termico</span>
+            <strong>-93.99 dBm</strong>
+            <p>Calculado directamente con 20 MHz y NF = 7 dB, sin forzar redondeos dentro del codigo.</p>
+          </article>
+          <article class="stat-card">
+            <span class="stat-title">Cobertura maxima A</span>
+            <strong>0.553 km</strong>
+            <p>El modelo urbano sigue siendo coherente, pero deja de ser el criterio limitante.</p>
+          </article>
+          <article class="stat-card">
+            <span class="stat-title">Cobertura maxima B</span>
+            <strong>3.412 km</strong>
+            <p>La macrocelda cubre mucho, pero no puede absorber la densidad del festival.</p>
+          </article>
+          <article class="stat-card">
+            <span class="stat-title">Capacidad omnidireccional B</span>
+            <strong>87.972 Erl</strong>
+            <p>Valor corregido con Erlang B real para 100 canales y GoS del 2%.</p>
+          </article>
+        </div>
+      </section>
+
+      <section class="section interactive-lab" id="laboratorio">
+        <div class="section-heading split-heading">
+          <div>
+            <p class="eyebrow">Laboratorio interactivo</p>
+            <h2>Calcula, compara y visualiza el diseno en tiempo real.</h2>
+          </div>
+          <p class="section-note">Los controles recalculan ruido, sensibilidad, cobertura, capacidad, cell splitting y reparto de canales sin recargar la pagina.</p>
+        </div>
+
+        <div class="lab-layout">
+          <aside class="control-card">
+            <div class="card-topline">
+              <span class="scenario-chip" id="scenario-chip">Escenario A</span>
+              <span class="control-note" id="preset-status">Base urbana del enunciado</span>
+            </div>
+
+            <div class="preset-row">
+              <button type="button" class="preset-button active" data-preset="A">Cargar A</button>
+              <button type="button" class="preset-button" data-preset="B">Cargar B</button>
+            </div>
+
+            <div class="quick-sliders">
+              <div class="slider-block">
+                <div class="slider-top">
+                  <span>SNR requerida</span>
+                  <strong id="snr-live">15 dB</strong>
+                </div>
+                <input type="range" min="0" max="25" step="0.5" value="15" data-field="snr">
+              </div>
+
+              <div class="slider-block">
+                <div class="slider-top">
+                  <span>Usuarios por km2</span>
+                  <strong id="density-live">2500</strong>
+                </div>
+                <input type="range" min="500" max="12000" step="100" value="2500" data-field="userDensity">
+              </div>
+
+              <div class="slider-block">
+                <div class="slider-top">
+                  <span>Reutilizacion N</span>
+                  <strong id="reuse-live">3</strong>
+                </div>
+                <input type="range" min="1" max="7" step="1" value="3" data-field="reuse">
+              </div>
+            </div>
+
+            <div class="control-groups">
+              <section class="control-group">
+                <h3>Parametros base</h3>
+                <div class="control-grid">
+                  <label>
+                    <span>Ancho de banda (MHz)</span>
+                    <input type="number" step="0.1" value="20" data-field="bandwidthMHz">
+                  </label>
+                  <label>
+                    <span>Figura de ruido (dB)</span>
+                    <input type="number" step="0.1" value="7" data-field="noiseFigure">
+                  </label>
+                  <label>
+                    <span>Potencia TX (dBm)</span>
+                    <input type="number" step="0.1" value="43" data-field="powerTx">
+                  </label>
+                  <label>
+                    <span>Ganancia TX (dBi)</span>
+                    <input type="number" step="0.1" value="18" data-field="gainTx">
+                  </label>
+                  <label>
+                    <span>Ganancia RX (dBi)</span>
+                    <input type="number" step="0.1" value="0" data-field="gainRx">
+                  </label>
+                  <label>
+                    <span>Perdidas extra (dB)</span>
+                    <input type="number" step="0.1" value="12" data-field="extraLosses">
+                  </label>
+                  <label>
+                    <span>Perdidas impl. (dB)</span>
+                    <input type="number" step="0.1" value="2" data-field="implLosses">
+                  </label>
+                  <label>
+                    <span>Canales totales</span>
+                    <input type="number" step="1" min="1" value="100" data-field="totalChannels">
+                  </label>
+                </div>
+              </section>
+
+              <section class="control-group">
+                <h3>Escenario radio</h3>
+                <div class="control-grid">
+                  <label>
+                    <span>Intercepto del modelo</span>
+                    <input type="number" step="0.1" value="135" data-field="intercept">
+                  </label>
+                  <label>
+                    <span>Pendiente log10</span>
+                    <input type="number" step="0.1" value="35" data-field="slope">
+                  </label>
+                  <label>
+                    <span>SNR requerida (dB)</span>
+                    <input type="number" step="0.1" value="15" data-field="snr">
+                  </label>
+                  <label>
+                    <span>Usuarios por km2</span>
+                    <input type="number" step="1" min="0" value="2500" data-field="userDensity">
+                  </label>
+                  <label>
+                    <span>Llamadas por hora</span>
+                    <input type="number" step="0.1" min="0" value="3" data-field="callsPerHour">
+                  </label>
+                  <label>
+                    <span>Duracion media (min)</span>
+                    <input type="number" step="0.1" min="0" value="2" data-field="durationMin">
+                  </label>
+                  <label>
+                    <span>Sectores</span>
+                    <input type="number" step="1" min="1" max="6" value="3" data-field="sectors">
+                  </label>
+                  <label>
+                    <span>Reutilizacion N</span>
+                    <input type="number" step="1" min="1" max="12" value="3" data-field="reuse">
+                  </label>
+                </div>
+              </section>
+            </div>
+          </aside>
+
+          <div class="lab-results">
+            <section class="result-panel">
+              <div class="panel-heading">
+                <p class="eyebrow">Salida instantanea</p>
+                <h3 id="current-scenario-name">Escenario A</h3>
+              </div>
+
+              <div class="result-grid">
+                <article class="result-card">
+                  <span>Ruido</span>
+                  <strong id="out-noise">-93.99 dBm</strong>
+                </article>
+                <article class="result-card">
+                  <span>Sensibilidad</span>
+                  <strong id="out-sensitivity">-76.99 dBm</strong>
+                </article>
+                <article class="result-card">
+                  <span>Perdida maxima</span>
+                  <strong id="out-lmax">125.99 dB</strong>
+                </article>
+                <article class="result-card">
+                  <span>Radio cobertura</span>
+                  <strong id="out-rcov">0.553 km</strong>
+                </article>
+                <article class="result-card">
+                  <span>Trafico usuario</span>
+                  <strong id="out-auser">0.100 Erl</strong>
+                </article>
+                <article class="result-card">
+                  <span>Densidad trafico</span>
+                  <strong id="out-adens">250.000 Erl/km2</strong>
+                </article>
+                <article class="result-card">
+                  <span>Capacidad media</span>
+                  <strong id="out-capacity">17.782 Erl</strong>
+                </article>
+                <article class="result-card">
+                  <span>Radio capacidad</span>
+                  <strong id="out-rcap">0.150 km</strong>
+                </article>
+                <article class="result-card accent-card">
+                  <span>Radio diseno</span>
+                  <strong id="out-design">0.150 km</strong>
+                </article>
+                <article class="result-card accent-card">
+                  <span>Limitante</span>
+                  <strong id="out-limit">Capacidad</strong>
+                </article>
+                <article class="result-card">
+                  <span>Reuse ratio D/R</span>
+                  <strong id="out-reuse-ratio">3.000</strong>
+                </article>
+                <article class="result-card">
+                  <span>Celdas en 1 km2</span>
+                  <strong id="out-cells-km2">15</strong>
+                </article>
+              </div>
+
+              <div class="insight-card">
+                <h3>Distribucion de canales y observaciones</h3>
+                <p id="out-distribution">C1: 34 canales -> sectores 12-11-11 | C2: 33 canales -> sectores 11-11-11 | C3: 33 canales -> sectores 11-11-11</p>
+                <div class="insight-meta">
+                  <span>Factor teorico de splitting</span>
+                  <strong id="out-splitting">8.01</strong>
+                </div>
+              </div>
+            </section>
+
+            <section class="formula-panel">
+              <div class="panel-heading">
+                <p class="eyebrow">Calculos paso a paso</p>
+                <h3>Trazabilidad matematica</h3>
+              </div>
+              <div class="formula-grid">
+                <article class="formula-card">
+                  <span>Ruido termico</span>
+                  <code id="formula-noise"></code>
+                </article>
+                <article class="formula-card">
+                  <span>Sensibilidad</span>
+                  <code id="formula-sensitivity"></code>
+                </article>
+                <article class="formula-card">
+                  <span>Balance de enlace</span>
+                  <code id="formula-lmax"></code>
+                </article>
+                <article class="formula-card">
+                  <span>Radio por cobertura</span>
+                  <code id="formula-rcov"></code>
+                </article>
+                <article class="formula-card">
+                  <span>Trafico y densidad</span>
+                  <code id="formula-traffic"></code>
+                </article>
+                <article class="formula-card">
+                  <span>Capacidad y radio</span>
+                  <code id="formula-capacity"></code>
+                </article>
+              </div>
+            </section>
+          </div>
+        </div>
+
+        <div class="chart-grid">
+          <article class="chart-card">
+            <div class="chart-head">
+              <div>
+                <p class="eyebrow">Grafica 1</p>
+                <h3>Comparacion de radios</h3>
+              </div>
+              <span class="chart-badge">Cobertura vs capacidad</span>
+            </div>
+            <div class="chart-stage" id="chart-radii"></div>
+          </article>
+
+          <article class="chart-card">
+            <div class="chart-head">
+              <div>
+                <p class="eyebrow">Grafica 2</p>
+                <h3>Explorador de reutilizacion</h3>
+              </div>
+              <span class="chart-badge">Barrido teorico N = 1...7</span>
+            </div>
+            <div class="chart-stage" id="chart-reuse"></div>
+            <div class="table-card compact-table">
+              <table>
+                <thead>
+                  <tr>
+                    <th>N</th>
+                    <th>Capacidad</th>
+                    <th>Radio diseno</th>
+                  </tr>
+                </thead>
+                <tbody id="reuse-table-body"></tbody>
+              </table>
+            </div>
+          </article>
+
+          <article class="chart-card wide-card">
+            <div class="chart-head">
+              <div>
+                <p class="eyebrow">Grafica 3</p>
+                <h3>Area cubierta frente a area soportable</h3>
+              </div>
+              <span class="chart-badge">Indicador de splitting</span>
+            </div>
+            <div class="chart-stage" id="chart-area"></div>
+          </article>
+        </div>
+      </section>
+
+      <section class="section scenarios">
+        <div class="section-heading split-heading">
+          <div>
+            <p class="eyebrow">Escenarios</p>
+            <h2>Dos problemas muy distintos, una misma conclusion.</h2>
+          </div>
+          <p class="section-note">La cobertura abre el mapa, pero la capacidad define el radio final.</p>
+        </div>
+
+        <div class="scenario-grid">
+          <article class="scenario-card scenario-a">
+            <div class="scenario-topline">Escenario A · Distrito financiero</div>
+            <h3>Alta calidad, entorno duro y penalizacion fuerte al aumentar la reutilizacion.</h3>
+            <ul>
+              <li>Modelo: <code>L = 135 + 35 log10(d)</code></li>
+              <li>SNR requerida: <code>15 dB</code></li>
+              <li>Usuarios activos: <code>2500 usuarios/km²</code></li>
+              <li>Trafico por usuario: <code>0.10 Erl</code></li>
+              <li>Densidad de trafico: <code>250 Erl/km²</code></li>
+            </ul>
+            <div class="mini-band mini-band-a">
+              <span>N=3</span>
+              <strong>0.150 km</strong>
+            </div>
+          </article>
+
+          <article class="scenario-card scenario-b">
+            <div class="scenario-topline">Escenario B · Festival global</div>
+            <h3>La propagacion acompana, pero la concentracion de usuarios rompe el esquema macrocelular.</h3>
+            <ul>
+              <li>Modelo: <code>L = 120 + 30 log10(d)</code></li>
+              <li>SNR requerida: <code>5 dB</code></li>
+              <li>Usuarios activos: <code>8000 usuarios/km²</code></li>
+              <li>Trafico por usuario: <code>0.083 Erl</code></li>
+              <li>Densidad de trafico: <code>666.667 Erl/km²</code></li>
+            </ul>
+            <div class="mini-band mini-band-b">
+              <span>Cell splitting</span>
+              <strong>0.205 km</strong>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <section class="section decision-matrix">
+        <div class="section-heading">
+          <p class="eyebrow">Comparativa final</p>
+          <h2>El radio de diseno queda fijado por capacidad en todos los casos.</h2>
+        </div>
+
+        <div class="table-card">
+          <table>
+            <thead>
+              <tr>
+                <th>Escenario</th>
+                <th>Radio cobertura</th>
+                <th>Radio capacidad</th>
+                <th>Radio diseno</th>
+                <th>Limitante</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>A (N=3)</td>
+                <td>0.553 km</td>
+                <td>0.150 km</td>
+                <td>0.150 km</td>
+                <td><span class="pill danger">Capacidad</span></td>
+              </tr>
+              <tr>
+                <td>A (N=4)</td>
+                <td>0.553 km</td>
+                <td>0.122 km</td>
+                <td>0.122 km</td>
+                <td><span class="pill danger">Capacidad</span></td>
+              </tr>
+              <tr>
+                <td>A (N=7)</td>
+                <td>0.553 km</td>
+                <td>0.076 km</td>
+                <td>0.076 km</td>
+                <td><span class="pill danger">Capacidad</span></td>
+              </tr>
+              <tr>
+                <td>B</td>
+                <td>3.412 km</td>
+                <td>0.205 km</td>
+                <td>0.205 km</td>
+                <td><span class="pill danger">Capacidad</span></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <section class="section tradeoffs">
+        <div class="tradeoff-layout">
+          <article class="tradeoff-card">
+            <p class="eyebrow">Escenario A</p>
+            <h2>Reutilizacion frente a interferencia</h2>
+            <p>
+              Al crecer <code>N</code> aumenta la distancia de reutilizacion <code>D/R = sqrt(3N)</code>, pero la capacidad por celda cae con rapidez.
+              La opcion <strong>N=3</strong> ofrece el mejor equilibrio practico dentro de la simplificacion del reto.
+            </p>
+            <div class="reuse-grid">
+              <div>
+                <span>N=3</span>
+                <strong>D/R = 3.000</strong>
+                <small>17.782 Erl por celda</small>
+              </div>
+              <div>
+                <span>N=4</span>
+                <strong>D/R = 3.464</strong>
+                <small>11.599 Erl por celda</small>
+              </div>
+              <div>
+                <span>N=7</span>
+                <strong>D/R = 4.583</strong>
+                <small>4.568 Erl por celda</small>
+              </div>
+            </div>
+          </article>
+
+          <article class="tradeoff-card highlight-card">
+            <p class="eyebrow">Escenario B</p>
+            <h2>La macrocelda no basta</h2>
+            <p>
+              Una celda con radio de cobertura de <strong>3.412 km</strong> cubre un area de <strong>36.57 km²</strong>.
+              Si se respeta la demanda del festival, esa misma superficie exige aproximadamente <strong>278 microceldas</strong> de <strong>0.205 km</strong>.
+            </p>
+            <div class="split-counter">
+              <span>Factor teorico de splitting</span>
+              <strong>277.14x</strong>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <section class="section workflow">
+        <div class="section-heading">
+          <p class="eyebrow">Metodologia reproducible</p>
+          <h2>El flujo de calculo queda alineado con el enunciado.</h2>
+        </div>
+        <div class="timeline">
+          <article>
+            <span>01</span>
+            <h3>Ruido y sensibilidad</h3>
+            <p>Calculo directo del suelo de ruido y de la sensibilidad especifica de cada escenario.</p>
+          </article>
+          <article>
+            <span>02</span>
+            <h3>Balance de enlace</h3>
+            <p>Obtencion de la perdida maxima admisible y del radio por cobertura usando los modelos dados.</p>
+          </article>
+          <article>
+            <span>03</span>
+            <h3>Trafico y Erlang B</h3>
+            <p>Calculo real de la capacidad con GoS del 2% y reparto entero de canales por celda y sector.</p>
+          </article>
+          <article>
+            <span>04</span>
+            <h3>Decision de diseno</h3>
+            <p>Comparacion entre radios de cobertura y capacidad para elegir el radio mas restrictivo.</p>
+          </article>
+        </div>
+      </section>
+
+      <section class="section next-steps" id="pasos">
+        <div class="section-heading">
+          <p class="eyebrow">Trabajo pendiente util</p>
+          <h2>Siguientes pasos recomendados para cerrar la practica.</h2>
+        </div>
+        <div class="steps-grid">
+          <article>
+            <h3>1. Integrar memoria final</h3>
+            <p>Volcar estos resultados corregidos al documento academico con tablas, discusion y conclusiones maduras.</p>
+          </article>
+          <article>
+            <h3>2. Justificar el area objetivo</h3>
+            <p>Usar 1 km2 como area de referencia comparativa o proponer otra superficie y recalcular el numero de celdas.</p>
+          </article>
+          <article>
+            <h3>3. Cerrar el debate A</h3>
+            <p>Defender N=3 como solucion base y explicar el precio de pasar a N=4 o N=7.</p>
+          </article>
+          <article>
+            <h3>4. Proyeccion 2030</h3>
+            <p>Añadir small cells, beamforming, network slicing y edge computing como ampliacion de sobresaliente.</p>
+          </article>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
